@@ -1,0 +1,11 @@
+_ > nanoagent.plugin.manifest.ProductConfig:
+tagline: "Solve MBPP coding problems, proven by their own tests"
+summary: "Pick any of the 500 problems in MBPP's test split and the agent writes a Python solution. Every attempt runs against the problem's official assert tests in an isolated, time-limited process, and the answer only counts when the exact submitted code has a passing run on record."
+highlights:
+  - "Checked by running MBPP's official asserts, never by an AI judge"
+  - "Catches tricks such as objects that claim to equal anything"
+  - "Each run is kept as a record tied to the code's SHA-256"
+steps:
+  - "Give it an MBPP test task id between 11 and 510"
+  - "It reads the problem, writes code and runs the tests until they pass"
+  - "It submits the passing code, and the verdict shows how many official asserts hold"

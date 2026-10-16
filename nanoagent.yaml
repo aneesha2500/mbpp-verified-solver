@@ -1,0 +1,38 @@
+_ > nanoagent.plugin.manifest.ManifestConfig:
+id: mbpp-verified-solver
+name: MBPP Verified Solver
+version: 0.1.0
+status: ready
+nanoagent: ~=0.5.0
+
+runtime > nanoagent.plugin.manifest.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.manifest.PermissionsConfig:
+  network > nanoagent.plugin.manifest.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.manifest.FilesystemConfig:
+    write: [workspace]
+
+# One entry per contract.Tool; its input and output classes are contract.TOOLS's.
+tools > dict[contract.Tool, nanoagent.plugin.manifest.ToolConfig]:
+  get_problem:
+    description: Return an MBPP test-split problem's statement, entry-point name and assert tests
+  run_tests:
+    description: Run Python code against the problem's official asserts in a time-limited child process and record the result
+  official_tests:
+    description: Return the problem's official tests and their SHA-256 digest (the solve-problem reference)
+
+# One entry per contract.Task; its input and output classes are contract.TASKS's.
+tasks > dict[contract.Task, nanoagent.plugin.manifest.TaskConfig]:
+  solve-problem:
+    description: Write a Python solution to an MBPP problem that passes its official tests
+    runner: agent
+    tools: [get_problem, run_tests]
+    reference: official_tests
+    instructions: |-
+      Call get_problem with the task_id to read the problem statement, the entry-point function name and the assert tests.
+      Write Python code that defines the entry-point function (with any helpers or imports it needs) so that every assert holds. Do not hard-code the test values; solve the problem as stated.
+      Call run_tests with the task_id and your code. If any assert fails, read the errors, fix the code and call run_tests again.
+      When run_tests reports all_passed true, submit the task_id and exactly the code of that passing call, character for character. Code that was never run, or was changed after its passing run, fails verification.
