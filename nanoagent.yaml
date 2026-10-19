@@ -1,7 +1,7 @@
 _ > nanoagent.plugin.v0001.ManifestConfig:
 id: mbpp-verified-solver
 name: MBPP Verified Solver
-version: 0.1.0
+version: 0.1.1
 status: ready
 spec: nanoagent.plugin/v0001
 
@@ -36,3 +36,4 @@ tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
       Write Python code that defines the entry-point function (with any helpers or imports it needs) so that every assert holds. Do not hard-code the test values; solve the problem as stated.
       Call run_tests with the task_id and your code. If any assert fails, read the errors, fix the code and call run_tests again.
       When run_tests reports all_passed true, submit the task_id and exactly the code of that passing call, character for character. Code that was never run, or was changed after its passing run, fails verification.
+      Work out every value yourself, then end by calling the submit tool with them. Never write the answer as a chat message instead: a run that ends without a submit call fails, whatever it wrote.
