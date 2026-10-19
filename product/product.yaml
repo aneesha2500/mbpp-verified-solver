@@ -1,4 +1,4 @@
-_ > nanoagent.plugin.manifest.ProductConfig:
+_ > nanoagent.plugin.v0001.ProductConfig:
 tagline: "Solve MBPP coding problems, proven by their own tests"
 summary: "Pick any of the 500 problems in MBPP's test split and the agent writes a Python solution. Every attempt runs against the problem's official assert tests in an isolated, time-limited process, and the answer only counts when the exact submitted code has a passing run on record."
 highlights:
